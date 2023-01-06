@@ -1,5 +1,8 @@
 package vttp2022.paf.assessment.eshop.models;
 
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+
 // DO NOT CHANGE THIS CLASS
 public class Customer {
 
@@ -30,4 +33,17 @@ public class Customer {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public JsonObject toJSON() {
+        return Json.createObjectBuilder()
+                .add("name", getName())
+                .add("address", getAddress())
+                .add("email", getEmail())
+                .build();
+    }
+	@Override
+	public String toString() {
+		return "Customer [name=" + name + ", address=" + address + ", email=" + email + "]";
+	}
+
+	
 }

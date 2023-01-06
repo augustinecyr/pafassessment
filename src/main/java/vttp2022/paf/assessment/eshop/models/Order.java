@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.jdbc.support.rowset.SqlRowSet;
+
 // DO NOT CHANGE THIS CLASS
 public class Order {
 
@@ -15,6 +17,8 @@ public class Order {
 	private String status;
 	private Date orderDate = new Date();
 	private List<LineItem> lineItems = new LinkedList<>();
+
+
 
 	public String getOrderId() {
 		return this.orderId;
@@ -97,4 +101,25 @@ public class Order {
 	public void addLineItem(LineItem lineItem) {
 		this.lineItems.add(lineItem);
 	}
+
+	public static Order create(SqlRowSet orderRs, List<Order> orders) {
+		Order ord = new Order();
+		ord.setOrderId(orderRs.getString("order_id"));
+		ord.setDeliveryId(orderRs.getString("delivery_id"));
+		ord.setName(orderRs.getString("name"));
+		ord.setAddress(orderRs.getString("address"));
+		ord.setEmail(orderRs.getString("email"));
+		ord.setStatus(orderRs.getString("status"));
+		ord.setOrderDate(orderRs.getDate("order_date"));
+
+		return ord;
+	}
+
+	@Override
+	public String toString() {
+		return "Order [orderId=" + orderId + ", deliveryId=" + deliveryId + ", name=" + name + ", address=" + address
+				+ ", email=" + email + ", status=" + status + ", orderDate=" + orderDate + ", lineItems=" + lineItems
+				+ "]";
+	}
+
 }

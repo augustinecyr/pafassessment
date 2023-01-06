@@ -30,4 +30,11 @@ public class OrderStatus {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	@Override
+	public String toString() {
+		return "OrderStatus [orderId=" + orderId + ", deliveryId=" + deliveryId + ", status=" + status + "]";
+	}
+
+	
 }
