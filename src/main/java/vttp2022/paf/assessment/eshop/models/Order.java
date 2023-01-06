@@ -6,6 +6,10 @@ import java.util.List;
 
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonObjectBuilder;
+
 // DO NOT CHANGE THIS CLASS
 public class Order {
 
@@ -17,8 +21,6 @@ public class Order {
 	private String status;
 	private Date orderDate = new Date();
 	private List<LineItem> lineItems = new LinkedList<>();
-
-
 
 	public String getOrderId() {
 		return this.orderId;
@@ -113,6 +115,21 @@ public class Order {
 		ord.setOrderDate(orderRs.getDate("order_date"));
 
 		return ord;
+	}
+
+	public JsonObject toJSON() {
+
+		JsonObjectBuilder builder = Json.createObjectBuilder();
+
+		builder.add("order_id", this.getOrderId());
+		builder.add("deliver_id", this.getDeliveryId());
+		builder.add("name", this.getName());
+		builder.add("address", this.getAddress());
+		builder.add("email", this.getEmail());
+		builder.add("status", this.getStatus());
+		builder.add("order_date", this.getOrderDate().toString());
+
+		return builder.build();
 	}
 
 	@Override
